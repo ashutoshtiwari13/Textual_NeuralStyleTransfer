@@ -7,4 +7,4 @@ import os
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
-from utils import render_fonts_image
+from utils import render_image_font
