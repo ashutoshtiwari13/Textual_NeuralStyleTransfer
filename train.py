@@ -50,9 +50,13 @@ def batch_norm(x, phase_train, scope='bn'):
     return normed
 
 
-def leaky_relu(x, alpha):
+def leaky_relu(x, alpha,name="leaky_relu"):
     # TODO: is this memory efficient?
-    return tf.maximum(x, x * alpha)
+    # return tf.maximum(x, x * alpha)
+    with tf.variable_scope(name):
+         f1 = 0.5 * (1 + alpha)
+         f2 = 0.5 * (1 - alpha)
+         return f1 * x + f2 * abs(x)
 
 
 def block(x, shape, phase_train, strides=None, padding='SAME', scope='_block'):
@@ -100,7 +104,7 @@ def total_variation_loss(x, side):
 
 def render_frame(x, frame_dir, step, img_per_row=10):
     frame_path = os.path.join(frame_dir, "step_%04d.png" % step)
-    return render_fonts_image(x, frame_path, img_per_row)
+    return render_image_font(x, frame_path, img_per_row)
 
 
 def compile_frames_to_gif(frame_dir, gif_file):
@@ -263,7 +267,7 @@ def main(_):
         print("inferred bitmap save at %s" % target_path)
         render_batch = 100
         for i in range(0, target.shape[0], render_batch):
-            render_fonts_image(target[i: i + render_batch],
+            render_image_font(target[i: i + render_batch],
                                os.path.join(FLAGS.bitmap_dir, "fonts_%04d_to_%04d.png" % (i, i + render_batch)), 10,
                                False)
         np.save(target_path, target)
