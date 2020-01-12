@@ -1,5 +1,4 @@
-#created by pyAssasin on 6/1/2020
-#-- coding: utf-8--
+
 import numpy as np
 
 def access_font_data(font, unit_scale):
