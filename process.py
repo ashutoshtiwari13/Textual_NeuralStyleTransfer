@@ -1,5 +1,4 @@
-#created by pyAssasin on 6/1/2020
-# coding :utf-8---
+
 import argparse
 import sys
 import numpy as np
